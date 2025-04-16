@@ -48,3 +48,59 @@ sns.countplot(data=data_cleaned, x='month', palette='coolwarm')
 plt.title('Number of Accidents by Month')
 plt.xlabel('Month')
 plt.ylabel('Number of Accidents')
+
+# Plot the distribution of accidents by day of the week
+plt.subplot(1, 3, 3)  # 1 row, 3 columns, third subplot
+sns.countplot(data=data_cleaned, x='day_of_week', palette='Set2')
+plt.title('Number of Accidents by Day of Week')
+plt.xlabel('Day of Week')
+plt.ylabel('Number of Accidents')
+plt.xticks(ticks=range(7), labels=['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'])
+
+# Adjust layout to prevent overlap
+plt.tight_layout()
+plt.show()
+# Select only numeric columns
+numeric_data = data_cleaned.select_dtypes(include=['float64', 'int64'])
+
+# Calculate the correlation matrix
+correlation_matrix = numeric_data.corr()
+
+# Plot the heatmap
+plt.figure(figsize=(12, 8))
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
+plt.title('Correlation Matrix')
+plt.show()
+plt.figure(figsize=(10, 6))
+sns.countplot(data=data_cleaned, x='Borough', palette='magma')
+plt.title('Accidents by Borough')
+plt.xlabel('Borough')
+plt.ylabel('Number of Accidents')
+plt.xticks(rotation=45)
+plt.show()
+# Map 0 to 'Non-Fatal', 1 to 'Fatal'
+fatal_counts = data_cleaned['Fatality'].map({1: 'Fatal', 0: 'Non-Fatal'}).value_counts()
+
+labels = fatal_counts.index
+sizes = fatal_counts.values
+colors = ['#FF6F61', '#6EC6FF']
+explode = [0.08 if label == 'Fatal' else 0 for label in labels]
+
+plt.figure(figsize=(5, 5))
+plt.pie(
+    sizes,
+    labels=labels,
+    autopct='%1.1f%%',
+    colors=colors,
+    explode=explode,
+    startangle=140,
+    shadow=False,
+    textprops=dict(color="black", fontsize=10)
+)
+
+plt.title("Fatal vs Non-Fatal Accidents", fontsize=12)
+plt.axis('equal')
+plt.tight_layout()
+plt.show()
+plt.figure(figsize=(10, 6))
+

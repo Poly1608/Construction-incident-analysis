@@ -104,3 +104,55 @@ plt.tight_layout()
 plt.show()
 plt.figure(figsize=(10, 6))
 
+
+# Create a pivot table to count accidents per Record Type Description and Borough
+accident_pivot = data_cleaned.groupby(['Record Type Description', 'Borough']).size().unstack()
+
+# Plot a stacked bar plot with a different colormap (e.g., viridis)
+accident_pivot.plot(kind='bar', stacked=True, colormap='viridis', figsize=(10, 6))
+plt.title('Accidents by Record Type Description and Borough')
+plt.xlabel('Accident Type')
+plt.ylabel('Number of Accidents')
+plt.xticks(rotation=45)
+plt.show()
+plt.figure(figsize=(10, 6))
+sns.scatterplot(data=data_cleaned, x='Longitude', y='Latitude', hue='Borough', palette='viridis', s=50, alpha=0.6)
+plt.title('Geospatial Distribution of Accidents')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.show()
+plt.figure(figsize=(14, 6))
+
+# Violin plot for Fatalities
+plt.subplot(1, 2, 1)
+sns.violinplot(data=data_cleaned, x='Borough', y='Fatality', palette='crest')
+plt.title('Fatalities Distribution by Borough')
+plt.xlabel('Borough')
+plt.ylabel('Fatalities')
+plt.xticks(rotation=45)
+
+# Violin plot for Injuries
+plt.subplot(1, 2, 2)
+sns.violinplot(data=data_cleaned, x='Borough', y='Injury', palette='coolwarm')
+plt.title('Injuries Distribution by Borough')
+plt.xlabel('Borough')
+plt.ylabel('Injuries')
+plt.xticks(rotation=45)
+
+plt.tight_layout()
+plt.show()
+plt.figure(figsize=(12, 6))
+sns.histplot(data_cleaned['House Number'], kde=True, color='teal', bins=30)
+plt.title('Distribution of Accidents by House Number')
+plt.xlabel('House Number')
+plt.ylabel('Frequency')
+plt.show() 
+plt.figure(figsize=(14, 6))
+
+# Boxplot for Latitude
+plt.subplot(1, 2, 1)
+sns.boxplot(data=data_cleaned, x='Borough', y='Latitude', palette='coolwarm')
+plt.title('Latitude Distribution by Borough')
+plt.xlabel('Borough')
+plt.ylabel('Latitude')
+plt.xticks(rotation=45)

@@ -213,3 +213,39 @@ plt.xlabel('Borough')
 plt.ylabel('Latitude')
 plt.xticks(rotation=45)
 
+# Boxplot for Longitude (Hiding Outliers)
+plt.subplot(1, 2, 2)
+sns.boxplot(data=data_cleaned, x='Borough', y='Longitude', palette='Set2', showfliers=False)
+plt.title('Longitude Distribution by Borough (Outliers Hidden)')
+plt.xlabel('Borough')
+plt.ylabel('Longitude')
+plt.xticks(rotation=45)
+
+plt.tight_layout()
+plt.show()
+def classify_severity(row):
+    if row['Fatality'] > 0:
+        return 'High'
+    elif row['Injury'] > 0:
+        return 'Medium'
+    else:
+        return 'Low'
+
+data_cleaned['Severity_Level'] = data_cleaned.apply(classify_severity, axis=1)
+
+plt.figure(figsize=(10, 6))
+sns.boxplot(data=data_cleaned, x='Severity_Level', y='Injury', palette='Set1')
+plt.title("Injury Count by Severity Level")
+plt.xlabel("Severity Level")
+plt.ylabel("Number of Injuries")
+plt.show()
+# Get top 10 most frequent accident reasons
+top_reasons = data_cleaned['Check2 Description'].value_counts().head(10)
+
+plt.figure(figsize=(10, 6))
+sns.barplot(x=top_reasons.values, y=top_reasons.index, palette='magma')
+plt.title(' Major Reasons for Accidents')
+plt.xlabel('Number of Accidents')
+plt.ylabel('Accident Reason')
+plt.tight_layout()
+plt.show()

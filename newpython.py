@@ -156,3 +156,60 @@ plt.title('Latitude Distribution by Borough')
 plt.xlabel('Borough')
 plt.ylabel('Latitude')
 plt.xticks(rotation=45)
+
+
+
+# Boxplot for Longitude
+plt.subplot(1, 2, 2)
+sns.boxplot(data=data_cleaned, x='Borough', y='Longitude', palette='Set2')
+plt.title('Longitude Distribution by Borough')
+plt.xlabel('Borough')
+plt.ylabel('Longitude')
+plt.xticks(rotation=45)
+
+plt.tight_layout()
+plt.show()
+
+
+# Calculate Z-scores for Latitude and Longitude
+data_cleaned['Z_Score_Latitude'] = zscore(data_cleaned['Latitude'])
+data_cleaned['Z_Score_Longitude'] = zscore(data_cleaned['Longitude'])
+
+# Set the Z-score threshold (commonly 3 or -3 for outliers)
+threshold = 3
+
+# Filter out the rows where Z-scores are greater than the threshold (outliers)
+data_filtered = data_cleaned[(np.abs(data_cleaned['Z_Score_Latitude']) <= threshold) & 
+                             (np.abs(data_cleaned['Z_Score_Longitude']) <= threshold)]
+
+# Create the boxplots after removing outliers
+plt.figure(figsize=(14, 6))
+
+# Boxplot for Latitude (Outliers Removed Based on Z-Score)
+plt.subplot(1, 2, 1)
+sns.boxplot(data=data_filtered, x='Borough', y='Latitude', palette='coolwarm')
+plt.title('Latitude Distribution by Borough (Outliers Removed)')
+plt.xlabel('Borough')
+plt.ylabel('Latitude')
+plt.xticks(rotation=45)
+
+# Boxplot for Longitude (Outliers Removed Based on Z-Score)
+plt.subplot(1, 2, 2)
+sns.boxplot(data=data_filtered, x='Borough', y='Longitude', palette='Set2')
+plt.title('Longitude Distribution by Borough (Outliers Removed)')
+plt.xlabel('Borough')
+plt.ylabel('Longitude')
+plt.xticks(rotation=45)
+
+plt.tight_layout()
+plt.show()
+plt.figure(figsize=(14, 6))
+
+# Boxplot for Latitude (Hiding Outliers)
+plt.subplot(1, 2, 1)
+sns.boxplot(data=data_cleaned, x='Borough', y='Latitude', palette='coolwarm', showfliers=False)
+plt.title('Latitude Distribution by Borough (Outliers Hidden)')
+plt.xlabel('Borough')
+plt.ylabel('Latitude')
+plt.xticks(rotation=45)
+

@@ -33,3 +33,12 @@ data_cleaned['month'] = data_cleaned['Incident Date'].dt.month
 print(data_cleaned.head())
 data.head(20)
 plt.figure(figsize=(18, 6))  # Adjust the overall figure size
+
+# Plot the distribution of accidents by year
+plt.subplot(1, 3, 1)  # 1 row, 3 columns, first subplot
+sns.countplot(data=data_cleaned, x='year', palette='viridis')
+plt.title('Number of Accidents by Year')
+plt.xlabel('Year')
+plt.ylabel('Number of Accidents')
+plt.xticks(rotation=45)
+

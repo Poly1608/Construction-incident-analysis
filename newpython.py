@@ -42,3 +42,9 @@ plt.xlabel('Year')
 plt.ylabel('Number of Accidents')
 plt.xticks(rotation=45)
 
+# Plot the distribution of accidents by month
+plt.subplot(1, 3, 2)  # 1 row, 3 columns, second subplot
+sns.countplot(data=data_cleaned, x='month', palette='coolwarm')
+plt.title('Number of Accidents by Month')
+plt.xlabel('Month')
+plt.ylabel('Number of Accidents')

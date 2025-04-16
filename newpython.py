@@ -249,3 +249,15 @@ plt.xlabel('Number of Accidents')
 plt.ylabel('Accident Reason')
 plt.tight_layout()
 plt.show()
+
+# Top 10 NTAs (neighborhoods) by number of accidents
+top_areas = data_cleaned['Neighborhood Tabulation Area (NTA) (2020)'].value_counts().head(10)
+
+plt.figure(figsize=(10, 6))
+sns.barplot(x=top_areas.values, y=top_areas.index, palette='coolwarm')
+plt.title('Top 10 Areas with Most Accidents')
+plt.xlabel('Number of Accidents')
+plt.ylabel('Neighborhood Tabulation Area (NTA)')
+plt.tight_layout()
+plt.show()
+
